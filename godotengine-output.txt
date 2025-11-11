@@ -1,0 +1,97 @@
+Feature: Godot Engine Website Testing # features/godotengine.feature:1
+  As a game developer
+  I want to be able view information about
+  and download this game engine
+  Scenario: User visits homepage                                                                # features/godotengine.feature:6
+    Given I open the site "https://godotengine.org/"                                            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                                           # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    Then I expect that the title is "Godot Engine - Free and open source 2D and 3D game engine" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:25
+    Then I expect that element ".hero h1" contains the text "game engine"                       # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:121
+    Then I expect that element ".main-download" is visible                                      # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: User clicks main download button                             # features/godotengine.feature:13
+    Given I open the site "https://godotengine.org/"                     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the button ".download-title"                         # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:36
+    Then I expect the url to contain "https://godotengine.org/download/" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+
+  Scenario: User wants to download different versions of godot       # features/godotengine.feature:19
+    Given I have a screen that is 1920 by 1080 pixels                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    Given I open the site "https://godotengine.org/download/macos"   # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Then I expect that element ".btn-download" does exist            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+    Given I open the site "https://godotengine.org/download/android" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Then I expect that element ".btn-download" does exist            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+    Given I open the site "https://godotengine.org/download/windows" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Then I expect that element ".btn-download" does exist            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+    Given I open the site "https://godotengine.org/download/linux"   # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Then I expect that element ".btn-download" does exist            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+
+  Scenario: User opens the features page                                 # features/godotengine.feature:30
+    Given I open the site "https://godotengine.org/"                     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the link "Features"                                  # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:31
+    Then I expect the url to contain "https://godotengine.org/features/" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    Then I expect that element ".showcase-items" is visible              # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+    Then I expect that element "#features" does exist                    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+
+  Scenario: User opens the showcase page                                   # features/godotengine.feature:38
+    Given I open the site "https://godotengine.org/"                       # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                      # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the link "Showcase"                                    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:31
+    Then I expect the url to contain "https://godotengine.org/showcase/"   # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    Then I expect that element ".showcase-cards" does exist                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+    Then I expect that element ".showcase-cards .showcase-card" does exist # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:83
+
+  Scenario: User opens the blog page                                     # features/godotengine.feature:46
+    Given I open the site "https://godotengine.org/"                     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the link "Blog"                                      # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:31
+    Then I expect the url to contain "https://godotengine.org/blog/"     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    Then I expect that element ".article-card" is visible                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+    When I click on the element "[title='Godot Engine - Blog - Page 3']" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect the url to contain "https://godotengine.org/blog/3"    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    Then I expect that element ".article-card" is visible                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: User opens the community page                                 # features/godotengine.feature:56
+    Given I open the site "https://godotengine.org/"                      # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the link "Communities"                                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:31
+    Then I expect the url to contain "https://godotengine.org/community/" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    When I click on the element "#events"                                 # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect the url to contain "https://godotengine.org/events/"    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    Given I open the site "https://godotengine.org/community/"            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    When I click on the element "#links"                                  # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect the url to contain "https://links.godotengine.org/"     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+
+  Scenario: User opens the assets page                                                         # features/godotengine.feature:67
+    Given I open the site "https://godotengine.org/"                                           # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                                          # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the link "Assets"                                                          # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:31
+    When I add "dialogic" to the inputfield "[placeholder='Search for...']"                    # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:48
+    When I click on the button "[type='submit']"                                               # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:36
+    When I pause for 250ms                                                                     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element ".asset-header" is visible                                      # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+    When I click on the element ".asset-header"                                                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:21
+    Then I expect the url to contain "https://godotengine.org/asset-library/asset/"            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:162
+    Then I expect that element ".media-heading" contains the text "Dialogic - Dialogue editor" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:121
+
+  Scenario: User opens the homepage on a mobile device             # features/godotengine.feature:79
+    Given I open the site "https://godotengine.org/"               # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 500 by 700 pixels                # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    Then I expect that element "#nav_toggle_btn" is visible        # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+    Then I expect that element ".language-selector" is not visible # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+    When I click on the button "#nav_toggle_btn"                   # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:36
+    Then I expect that element ".language-selector" is visible     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:14
+
+  Scenario: User changes the language on the homepage                          # features/godotengine.feature:87
+    Given I open the site "https://godotengine.org/"                           # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:65
+    Given I have a screen that is 1920 by 1080 pixels                          # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions_re.py:85
+    When I click on the button ".language-selector"                            # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:36
+    When I click on the button "[data-lang='de']"                              # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:36
+    When I pause for 500ms                                                     # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/actions.py:16
+    Then I expect that element ".hero h1" contains the text "Deine kostenlose" # ../../../../../../opt/homebrew/lib/python3.11/site-packages/behave_webdriver/steps/expectations.py:121
+
+1 feature passed, 0 failed, 0 skipped
+10 scenarios passed, 0 failed, 0 skipped
+69 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m15.325s

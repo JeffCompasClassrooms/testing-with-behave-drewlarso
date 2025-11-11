@@ -1,0 +1,311 @@
+Feature: Fangamer Website Testing # features/fangamer.feature:1
+  As a shopper
+  I want to search through gaming merchandise
+  and checkout when I am ready
+  Scenario: User opens empty cart          # features/fangamer.feature:6
+    Given I open the fangamer homepage     # features/steps/fangamer_steps.py:7
+    Given I click the shopping cart button # features/steps/fangamer_steps.py:38
+    Then I expect that the cart is empty   # features/steps/fangamer_steps.py:135
+
+  Scenario: User wants to buy a book                                                                        # features/fangamer.feature:11
+    Given I open the product page at "https://www.fangamer.com/collections/guidebooks/products/m3-handbook" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                    # features/steps/fangamer_steps.py:104
+    Then I expect that the cart is not empty                                                                # features/steps/fangamer_steps.py:142
+    Given I click the checkout button                                                                       # features/steps/fangamer_steps.py:111
+    Then I expect I am on the cart page                                                                     # features/steps/fangamer_steps.py:149
+    Given I remove item 1 from my cart                                                                      # features/steps/fangamer_steps.py:127
+
+  Scenario: User wants to buy a shirt                                                                         # features/fangamer.feature:19
+    Given I open the product page at "https://www.fangamer.com/collections/t-shirts/products/desert-bus-2025" # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                             # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                      # features/steps/fangamer_steps.py:104
+    Then I expect that the cart is not empty                                                                  # features/steps/fangamer_steps.py:142
+    Given I click the checkout button                                                                         # features/steps/fangamer_steps.py:111
+    Then I expect I am on the cart page                                                                       # features/steps/fangamer_steps.py:149
+    Given I remove item 1 from my cart                                                                        # features/steps/fangamer_steps.py:127
+
+  Scenario: User searches for a specific game                 # features/fangamer.feature:28
+    Given I open the fangamer homepage                        # features/steps/fangamer_steps.py:7
+    Given I search "deltarune"                                # features/steps/fangamer_steps.py:74
+    Given I click the first item in the list                  # features/steps/fangamer_steps.py:119
+    Then I expect that "deltarune" is somewhere on the screen # features/steps/fangamer_steps.py:159
+
+  Scenario: User searches for an invalid game  # features/fangamer.feature:34
+    Given I open the fangamer homepage         # features/steps/fangamer_steps.py:7
+    Given I search "invaliddata"               # features/steps/fangamer_steps.py:74
+    Then I expect no results to show up        # features/steps/fangamer_steps.py:165
+
+  Scenario: User wants to buy an out of stock item                                                  # features/fangamer.feature:39
+    Given I open the product page at "https://www.fangamer.com/products/balatro-wall-calendar-2026" # features/steps/fangamer_steps.py:14
+    Then I expect that it says restock planned                                                      # features/steps/fangamer_steps.py:195
+    Then I expect I can get notified when its back in stock                                         # features/steps/fangamer_steps.py:203
+
+  Scenario: User selects game from the navbar           # features/fangamer.feature:44
+    Given I open the fangamer homepage                  # features/steps/fangamer_steps.py:7
+    Given I click the collections button                # features/steps/fangamer_steps.py:20
+    Given I click the first game in the collections tab # features/steps/fangamer_steps.py:29
+
+  Scenario: User wants to look through items under $15                                     # features/fangamer.feature:49
+    Given I open the product page at "https://www.fangamer.com/collections/gifts-under-15" # features/steps/fangamer_steps.py:14
+    Then I expect every item on this page to be less than 15                               # features/steps/fangamer_steps.py:186
+
+  Scenario: User wants to go back to the home page                                                                           # features/fangamer.feature:53
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the navbar logo                                                                                            # features/steps/fangamer_steps.py:65
+    Then I expect I am on the home page                                                                                      # features/steps/fangamer_steps.py:154
+
+  Scenario: User adds multiple different products to their cart                                                              # features/fangamer.feature:58
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/t-shirts/products/desert-bus-2025"                # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                                            # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                        # features/steps/fangamer_steps.py:111
+    Then I expect the subtotal to be 72                                                                                      # features/steps/fangamer_steps.py:178
+    Given I remove item 2 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+    Given I remove item 1 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+
+  Scenario: User adds many of the same item to their cart                                                                    # features/fangamer.feature:69
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                        # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Then I expect the subtotal to be 108                                                                                     # features/steps/fangamer_steps.py:178
+    Given I remove item 1 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+
+  Scenario: User adds a combo of items to their cart                                                                              # features/fangamer.feature:78
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush"      # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/long-sleeved-shirts/products/ufo-50-night-manor-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                                                 # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                             # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Then I expect the subtotal to be 198                                                                                          # features/steps/fangamer_steps.py:178
+    Given I remove item 2 from my cart                                                                                            # features/steps/fangamer_steps.py:127
+    Given I remove item 1 from my cart                                                                                            # features/steps/fangamer_steps.py:127
+
+  Scenario: User wants less of an item in their cart                                                                         # features/fangamer.feature:92
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                        # features/steps/fangamer_steps.py:111
+      Traceback (most recent call last):
+        File "/opt/homebrew/lib/python3.11/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/opt/homebrew/lib/python3.11/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features/steps/fangamer_steps.py", line 115, in step_impl
+          button.click()
+        File "/opt/homebrew/lib/python3.11/site-packages/selenium/webdriver/remote/webelement.py", line 80, in click
+          self._execute(Command.CLICK_ELEMENT)
+        File "/opt/homebrew/lib/python3.11/site-packages/selenium/webdriver/remote/webelement.py", line 633, in _execute
+          return self._parent.execute(command, params)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        File "/opt/homebrew/lib/python3.11/site-packages/selenium/webdriver/remote/webdriver.py", line 321, in execute
+          self.error_handler.check_response(response)
+        File "/opt/homebrew/lib/python3.11/site-packages/selenium/webdriver/remote/errorhandler.py", line 242, in check_response
+          raise exception_class(message, screen, stacktrace)
+      selenium.common.exceptions.ElementNotInteractableException: Message: element not interactable
+        (Session info: chrome=142.0.7444.135)
+
+    Given I click the add quantity button for item 1                                                                         # None
+    Given I click the add quantity button for item 1                                                                         # None
+    Given I click the add quantity button for item 1                                                                         # None
+    Given I click the subtract quantity button for item 1                                                                    # None
+    Given I click the subtract quantity button for item 1                                                                    # None
+    Then I expect the subtotal to be 72                                                                                      # None
+    Given I remove item 1 from my cart                                                                                       # None
+
+  Scenario: User wants less of multiple items in their cart                                                                       # features/fangamer.feature:104
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush"      # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/long-sleeved-shirts/products/ufo-50-night-manor-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                                                 # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                             # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the subtract quantity button for item 1                                                                         # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 2                                                                         # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 2                                                                         # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 2                                                                         # features/steps/fangamer_steps.py:56
+    Then I expect the subtotal to be 45                                                                                           # features/steps/fangamer_steps.py:178
+      Traceback (most recent call last):
+        File "/opt/homebrew/lib/python3.11/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/opt/homebrew/lib/python3.11/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features/steps/fangamer_steps.py", line 183, in step_impl
+          assert f"${subtotal}" == text.text
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      AssertionError
+
+    Given I remove item 1 from my cart                                                                                            # None
+
+  Scenario: User wants to multiple limited items                                                             # features/fangamer.feature:121
+    Given I open the product page at "https://www.fangamer.com/collections/restocked/products/mystery-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the any size button                                                                        # features/steps/fangamer_steps.py:96
+    Given I click the add to cart button                                                                     # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/restocked/products/mystery-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the any size button                                                                        # features/steps/fangamer_steps.py:96
+    Given I click the add to cart button                                                                     # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/cart"                                         # features/steps/fangamer_steps.py:14
+    Then I expect the subtotal to be 10                                                                      # features/steps/fangamer_steps.py:178
+      Traceback (most recent call last):
+        File "/opt/homebrew/lib/python3.11/site-packages/behave/model.py", line 1329, in run
+          match.run(runner.context)
+        File "/opt/homebrew/lib/python3.11/site-packages/behave/matchers.py", line 98, in run
+          self.func(context, *args, **kwargs)
+        File "features/steps/fangamer_steps.py", line 183, in step_impl
+          assert f"${subtotal}" == text.text
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      AssertionError
+
+
+
+Failing scenarios:
+  features/fangamer.feature:92  User wants less of an item in their cart
+  features/fangamer.feature:104  User wants less of multiple items in their cart
+  features/fangamer.feature:121  User wants to multiple limited items
+
+0 features passed, 1 failed, 0 skipped
+12 scenarios passed, 3 failed, 0 skipped
+84 steps passed, 3 failed, 8 skipped, 0 undefined
+Took 1m23.286s
+Feature: Fangamer Website Testing # features/fangamer.feature:1
+  As a shopper
+  I want to search through gaming merchandise
+  and checkout when I am ready
+  Scenario: User opens empty cart          # features/fangamer.feature:6
+    Given I open the fangamer homepage     # features/steps/fangamer_steps.py:7
+    Given I click the shopping cart button # features/steps/fangamer_steps.py:38
+    Then I expect that the cart is empty   # features/steps/fangamer_steps.py:135
+
+  Scenario: User wants to buy a book                                                                        # features/fangamer.feature:11
+    Given I open the product page at "https://www.fangamer.com/collections/guidebooks/products/m3-handbook" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                    # features/steps/fangamer_steps.py:104
+    Then I expect that the cart is not empty                                                                # features/steps/fangamer_steps.py:142
+    Given I click the checkout button                                                                       # features/steps/fangamer_steps.py:111
+    Then I expect I am on the cart page                                                                     # features/steps/fangamer_steps.py:149
+    Given I remove item 1 from my cart                                                                      # features/steps/fangamer_steps.py:127
+
+  Scenario: User wants to buy a shirt                                                                         # features/fangamer.feature:19
+    Given I open the product page at "https://www.fangamer.com/collections/t-shirts/products/desert-bus-2025" # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                             # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                      # features/steps/fangamer_steps.py:104
+    Then I expect that the cart is not empty                                                                  # features/steps/fangamer_steps.py:142
+    Given I click the checkout button                                                                         # features/steps/fangamer_steps.py:111
+    Then I expect I am on the cart page                                                                       # features/steps/fangamer_steps.py:149
+    Given I remove item 1 from my cart                                                                        # features/steps/fangamer_steps.py:127
+
+  Scenario: User searches for a specific game                 # features/fangamer.feature:28
+    Given I open the fangamer homepage                        # features/steps/fangamer_steps.py:7
+    Given I search "deltarune"                                # features/steps/fangamer_steps.py:74
+    Given I click the first item in the list                  # features/steps/fangamer_steps.py:119
+    Then I expect that "deltarune" is somewhere on the screen # features/steps/fangamer_steps.py:159
+
+  Scenario: User searches for an invalid game  # features/fangamer.feature:34
+    Given I open the fangamer homepage         # features/steps/fangamer_steps.py:7
+    Given I search "invaliddata"               # features/steps/fangamer_steps.py:74
+    Then I expect no results to show up        # features/steps/fangamer_steps.py:165
+
+  Scenario: User wants to buy an out of stock item                                                  # features/fangamer.feature:39
+    Given I open the product page at "https://www.fangamer.com/products/balatro-wall-calendar-2026" # features/steps/fangamer_steps.py:14
+    Then I expect that it says restock planned                                                      # features/steps/fangamer_steps.py:196
+    Then I expect I can get notified when its back in stock                                         # features/steps/fangamer_steps.py:204
+
+  Scenario: User selects game from the navbar           # features/fangamer.feature:44
+    Given I open the fangamer homepage                  # features/steps/fangamer_steps.py:7
+    Given I click the collections button                # features/steps/fangamer_steps.py:20
+    Given I click the first game in the collections tab # features/steps/fangamer_steps.py:29
+
+  Scenario: User wants to look through items under $15                                     # features/fangamer.feature:49
+    Given I open the product page at "https://www.fangamer.com/collections/gifts-under-15" # features/steps/fangamer_steps.py:14
+    Then I expect every item on this page to be less than 15                               # features/steps/fangamer_steps.py:187
+
+  Scenario: User wants to go back to the home page                                                                           # features/fangamer.feature:53
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the navbar logo                                                                                            # features/steps/fangamer_steps.py:65
+    Then I expect I am on the home page                                                                                      # features/steps/fangamer_steps.py:154
+
+  Scenario: User adds multiple different products to their cart                                                              # features/fangamer.feature:58
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/t-shirts/products/desert-bus-2025"                # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                                            # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                        # features/steps/fangamer_steps.py:111
+    Then I expect the subtotal to be 72                                                                                      # features/steps/fangamer_steps.py:178
+    Given I remove item 2 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+    Given I remove item 1 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+
+  Scenario: User adds many of the same item to their cart                                                                    # features/fangamer.feature:69
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                        # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Then I expect the subtotal to be 108                                                                                     # features/steps/fangamer_steps.py:178
+    Given I remove item 1 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+
+  Scenario: User adds a combo of items to their cart                                                                              # features/fangamer.feature:78
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush"      # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/long-sleeved-shirts/products/ufo-50-night-manor-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                                                 # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                             # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Then I expect the subtotal to be 198                                                                                          # features/steps/fangamer_steps.py:178
+    Given I remove item 2 from my cart                                                                                            # features/steps/fangamer_steps.py:127
+    Given I remove item 1 from my cart                                                                                            # features/steps/fangamer_steps.py:127
+
+  Scenario: User wants less of an item in their cart                                                                         # features/fangamer.feature:92
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush" # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                     # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                        # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 1                                                                         # features/steps/fangamer_steps.py:47
+    Given I click the subtract quantity button for item 1                                                                    # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 1                                                                    # features/steps/fangamer_steps.py:56
+    Then I expect the subtotal to be 72                                                                                      # features/steps/fangamer_steps.py:178
+    Given I remove item 1 from my cart                                                                                       # features/steps/fangamer_steps.py:127
+
+  Scenario: User wants less of multiple items in their cart                                                                       # features/fangamer.feature:104
+    Given I open the product page at "https://www.fangamer.com/collections/metal-gear-solid/products/metal-gear-d-dog-plush"      # features/steps/fangamer_steps.py:14
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/long-sleeved-shirts/products/ufo-50-night-manor-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the size button                                                                                                 # features/steps/fangamer_steps.py:88
+    Given I click the add to cart button                                                                                          # features/steps/fangamer_steps.py:104
+    Given I click the checkout button                                                                                             # features/steps/fangamer_steps.py:111
+    Given I click the add quantity button for item 1                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the add quantity button for item 2                                                                              # features/steps/fangamer_steps.py:47
+    Given I click the subtract quantity button for item 1                                                                         # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 2                                                                         # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 2                                                                         # features/steps/fangamer_steps.py:56
+    Given I click the subtract quantity button for item 2                                                                         # features/steps/fangamer_steps.py:56
+    Then I expect the subtotal to be 45                                                                                           # features/steps/fangamer_steps.py:178
+    Given I remove item 1 from my cart                                                                                            # features/steps/fangamer_steps.py:127
+
+  Scenario: User wants to multiple limited items                                                             # features/fangamer.feature:121
+    Given I open the product page at "https://www.fangamer.com/collections/restocked/products/mystery-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the any size button                                                                        # features/steps/fangamer_steps.py:96
+    Given I click the add to cart button                                                                     # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/collections/restocked/products/mystery-shirt" # features/steps/fangamer_steps.py:14
+    Given I click the any size button                                                                        # features/steps/fangamer_steps.py:96
+    Given I click the add to cart button                                                                     # features/steps/fangamer_steps.py:104
+    Given I open the product page at "https://www.fangamer.com/cart"                                         # features/steps/fangamer_steps.py:14
+    Then I expect the subtotal to be 10                                                                      # features/steps/fangamer_steps.py:178
+
+1 feature passed, 0 failed, 0 skipped
+15 scenarios passed, 0 failed, 0 skipped
+95 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 1m26.253s
