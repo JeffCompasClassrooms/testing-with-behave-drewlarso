@@ -1,0 +1,24 @@
+name: Workflow
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    RunUnitTests:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+            - name: Install pytest
+              run: pip install behave
+            - name: Run behave
+              run: behave
+            - name: Run behave for fangamer
+              run: behave fangamer/features
+            - name: Run behave for godotengine
+              run: behave godotengine/features
