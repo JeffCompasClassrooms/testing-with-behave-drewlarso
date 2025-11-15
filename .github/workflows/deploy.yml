@@ -22,10 +22,10 @@ jobs:
               run: python -m pip install --upgrade pip
             - name: Install requirements
               run: pip install -r requirements.txt
-            - name: Install chromedrivers
-              uses: nanasess/setup-chromedriver@v2
+            - name: Install chrome
+              uses: browser-actions/setup-chrome@v2
               with:
-                  chromedriver-version: '141.0.7390.78'
+                  install-chromedriver: true
             - name: Run behave for fangamer
               run: behave fangamer/features
             - name: Run behave for godotengine
