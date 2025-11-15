@@ -27,6 +27,7 @@ jobs:
               with:
                   install-chromedriver: true
             - name: Run behave for fangamer
-              run: behave fangamer/features
+              working-directory: fangamer
+              run: behave
             - name: Run behave for godotengine
               run: behave godotengine/features

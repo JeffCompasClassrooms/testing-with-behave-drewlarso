@@ -1,3 +1,4 @@
-selenium==3.141.0
-behave==1.2.6
-behave-webdriver==0.3.1
+selenium
+behave
+behave-webdriver
+urllib3<2.0
