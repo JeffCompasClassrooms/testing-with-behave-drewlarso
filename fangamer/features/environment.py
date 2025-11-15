@@ -4,10 +4,11 @@ from selenium.webdriver.chrome.options import Options
 
 
 def before_all(context):
-    options = Options()
-    options.add_argument("--headless")
-    options.add_argument("--no-sandbox")
-    context.behave_driver = behave_webdriver.Chrome(chrome_options=options)
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    context.behave_driver = behave_webdriver.Chrome(
+        options=chrome_options, timeout=30)
 
 
 def after_all(context):
