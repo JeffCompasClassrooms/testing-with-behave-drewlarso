@@ -23,7 +23,7 @@ def step_impl(context):
         By.CSS_SELECTOR, "#nav_collections_toggle"
     )
     button.click()
-    time.sleep(0.25)
+    time.sleep(1)
 
 
 @given("I click the first game in the collections tab")
